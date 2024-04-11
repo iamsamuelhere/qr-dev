@@ -26,10 +26,11 @@ const Dashboard = () => {
 
   return (
     <>
+      <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
       <h1>Dashboard</h1>
       <p> Hello {JSON.parse(form)?.email} !</p>
-      <br />
       <QRCode value={getUrl(JSON.parse(form).email)} />
+      </div>
       <Menu/>
     </>
   );
