@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Input from '../../components/Input.jsx';
 import Button from '../../components/Button.jsx';
+import {googleSignIn} from '../../services/firebase.js';
 const isAuth = (form) => {
   localStorage.setItem('form', JSON.stringify(form));
   return form.email == 'Am3@gmail.com' && form.password == '123' ? true : false;
@@ -63,7 +64,20 @@ const SignIn = () => {
           </form>
           <p>Don't have an account? {<Link to="/sign-up">SignUp</Link>}</p>
           <p>Forgot Password</p>
-
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button title="SignIn with Google"
+              onClick={()=>{
+                googleSignIn()
+                .then(result=>{
+                  
+                  navigate('/dashboard')
+                }).catch(error=>{
+    
+                })
+              }}
+              styles={{ width: '100%' }} />
+            </div>
+          
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button
               title="Dummy creds"

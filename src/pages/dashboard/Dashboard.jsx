@@ -28,8 +28,8 @@ const Dashboard = () => {
     <>
       <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
       <h1>Dashboard</h1>
-      <p> Hello {JSON.parse(form)?.email} !</p>
-      <QRCode value={getUrl(JSON.parse(form).email)} />
+      {/* <p> Hello {JSON.parse(form)?.email} !</p>
+      <QRCode value={getUrl(JSON.parse(form).email)} /> */}
       </div>
       <Menu/>
     </>
