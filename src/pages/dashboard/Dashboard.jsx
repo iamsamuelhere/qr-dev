@@ -1,6 +1,7 @@
 import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
 import Menu from './menu/Menu.jsx';
+import { useEffect } from 'react';
 
 const getUrl = (email) => {
   if (email == null) return;
@@ -15,14 +16,36 @@ const getUrl = (email) => {
     }
   }
 };
+const map = [
+  {
+    email:"iamsamuelhere@gmail.com",
+    endpoint:"https://www.google.com"
+  }
+]
+const checkRegisteredEmail = (email)=>{
+  const present = map.filter(element=>{
+    if(email == element.email){
+      return element;
+    }
+  })
+  if(present.length ==0){return false;} else return true;
+}
 const Dashboard = () => {
   const navigate = useNavigate();
-  const form = localStorage.getItem('form');
-  console.log('Form:::', form);
 
-  if (form == null) {
+  useEffect(()=>{
+    const authStore = localStorage.getItem('auth');
+    const authStoreParsed = JSON.parse(authStore);
+
+    if(authStore == null)
     navigate('/sign-in');
-  }
+
+   const isRegistered =  checkRegisteredEmail(authStoreParsed?.email);
+   if(!isRegistered){
+    navigate("/sign-in");
+    localStorage.removeItem('auth');
+   }
+  },[])
 
   return (
     <>

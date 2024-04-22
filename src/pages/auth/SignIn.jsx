@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Input from '../../components/Input.jsx';
 import Button from '../../components/Button.jsx';
@@ -12,6 +12,12 @@ const SignIn = () => {
     email: '',
     password: '',
   });
+  useEffect(()=>{
+    const auth = localStorage.getItem('auth');
+    if(auth){
+      navigate('/dashboard');
+    }
+  },[])
   const navigate = useNavigate();
   return (
     <div
@@ -70,6 +76,11 @@ const SignIn = () => {
                 googleSignIn()
                 .then(result=>{
                   
+                  localStorage.setItem("auth", JSON.stringify({
+                    name:result.displayName,
+                    email:result.email,
+                    
+                  }))
                   navigate('/dashboard')
                 }).catch(error=>{
     
